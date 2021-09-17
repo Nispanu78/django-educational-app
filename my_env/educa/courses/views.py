@@ -35,26 +35,23 @@ class OwnerCourseEditMixin(OwnerCourseMixin, OwnerEditMixin):
     template_name = 'courses/manage/course/form.html'
 
 
-class ManageCourseListView(ListView):
-    model = Course
+class ManageCourseListView(OwnerCourseMixin, ListView):
     template_name = 'courses/manage/course/list.html'
     # permission_required = 'courses.view_course'
 
-    def get_queryset(self):
-        qs = super().get_queryset()
-        return qs.filter(owner=self.request.user)
-
-# class CourseCreateView(OwnerCourseEditMixin, CreateView):
-#     permission_required = 'courses.add_course'
+class CourseCreateView(OwnerCourseEditMixin, CreateView):
+    pass
+    # permission_required = 'courses.add_course'
 #
 #
-# class CourseUpdateView(OwnerCourseEditMixin, UpdateView):
-#     permission_required = 'courses.change_course'
+class CourseUpdateView(OwnerCourseEditMixin, UpdateView):
+    pass
+    # permission_required = 'courses.change_course'
 #
 #
-# class CourseDeleteView(OwnerCourseMixin, DeleteView):
-#     template_name = 'courses/manage/course/delete.html'
-#     permission_required = 'courses.delete_course'
+class CourseDeleteView(OwnerCourseMixin, DeleteView):
+    template_name = 'courses/manage/course/delete.html'
+    # permission_required = 'courses.delete_course'
 #
 #
 # class CourseModuleUpdateView(TemplateResponseMixin, View):
