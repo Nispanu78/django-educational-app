@@ -4,6 +4,7 @@ from django.views.generic.base import TemplateResponseMixin, View
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, \
                                       DeleteView
+from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, \
                                        PermissionRequiredMixin
 from django.forms.models import modelform_factory
@@ -195,3 +196,8 @@ class CourseListView(TemplateResponseMixin, View):
         return self.render_to_response({'subjects': subjects,
                                         'subject': subject,
                                         'courses': courses})
+
+
+class CourseDetailView(DetailView):
+    model = Course
+    template_name = 'courses/course/detail.html'
