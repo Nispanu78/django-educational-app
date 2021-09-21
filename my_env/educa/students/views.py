@@ -3,9 +3,9 @@ from django.views.generic.edit import CreateView, FormView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
-# from django.views.generic.list import ListView
+from django.views.generic.list import ListView
 # from django.views.generic.detail import DetailView
-# from courses.models import Course
+from courses.models import Course
 from .forms import CourseEnrollForm
 
 
@@ -37,13 +37,13 @@ class StudentEnrollCourseView(LoginRequiredMixin, FormView):
                             args=[self.course.id])
 #
 #
-# class StudentCourseListView(LoginRequiredMixin, ListView):
-#     model = Course
-#     template_name = 'students/course/list.html'
-#
-#     def get_queryset(self):
-#         qs = super().get_queryset()
-#         return qs.filter(students__in=[self.request.user])
+class StudentCourseListView(LoginRequiredMixin, ListView):
+    model = Course
+    template_name = 'students/course/list.html'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(students__in=[self.request.user])
 #
 #
 # class StudentCourseDetailView(DetailView):
