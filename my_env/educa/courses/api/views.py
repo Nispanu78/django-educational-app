@@ -3,11 +3,11 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authentication import BasicAuthentication
-# from rest_framework.permissions import IsAuthenticated
-# from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets
 # from rest_framework.decorators import action
 from ..models import Subject, Course
-from .serializers import SubjectSerializer
+from .serializers import SubjectSerializer, CourseSerializer
 # from .permissions import IsEnrolled
 
 
@@ -23,7 +23,7 @@ class SubjectDetailView(generics.RetrieveAPIView):
 
 class CourseEnrollView(APIView):
     authentication_classes = (BasicAuthentication,)
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request, pk, format=None):
         course = get_object_or_404(Course, pk=pk)
@@ -31,9 +31,9 @@ class CourseEnrollView(APIView):
         return Response({'enrolled': True})
 #
 #
-# class CourseViewSet(viewsets.ReadOnlyModelViewSet):
-#     queryset = Course.objects.all()
-#     serializer_class = CourseSerializer
+class CourseViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
 #
 #     @action(detail=True,
 #             methods=['post'],
